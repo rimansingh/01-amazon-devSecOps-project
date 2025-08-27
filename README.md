@@ -30,7 +30,6 @@ Place screenshots under `docs/images/` and ensure the paths below match your fil
 ![Jenkins Build Console](docs/images/jenkins-build-console.png)
 ![SonarQube Project Overview](docs/images/sonarqube-project.png)
 ![DockerHub Repository Tags](docs/images/dockerhub-tags.png)
-![Running Container (docker ps)](docs/images/docker-ps.png)
 ![Prometheus Targets](docs/images/prometheus-targets.png)
 ![Grafana Dashboard - Node Exporter](docs/images/grafana-node-exporter.png)
 ![Application Homepage](docs/images/app-home.png)
