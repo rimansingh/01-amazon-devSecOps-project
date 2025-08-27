@@ -35,16 +35,6 @@ Screenshots are stored in the `screenshots/` folder. The images below should now
 ![Grafana Performance Dashboard](./screenshots/grafana-performance.png)
 ![Application Homepage](./screenshots/app-home.png)
 
-**Available Screenshots:**
-✅ Architecture diagram: Source → Jenkins → Scanners → Docker → Deploy → Monitor
-✅ Jenkins stage view of a successful pipeline run  
-✅ Jenkins console output around SonarQube/Trivy/Dependency-Check
-✅ SonarQube project dashboard (quality gate)
-✅ Docker Hub repo showing pushed tags (`latest` and build-number tag)
-✅ Prometheus Targets page listing node_exporter and Jenkins
-✅ Grafana dashboards (Node Exporter 1860, Jenkins 9964)
-✅ The app running in the browser
-
 ## Run Locally
 
 From the project root:
