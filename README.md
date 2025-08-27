@@ -25,14 +25,14 @@ amazon-Devsecops/
 
 Place screenshots under `docs/images/` and ensure the paths below match your filenames. If you haven't captured them yet, the list indicates exactly what to take.
 
-![Architecture Diagram](docs/images/architecture.png)
-![Jenkins Pipeline Stage View](docs/images/jenkins-stage-view.png)
-![Jenkins Build Console](docs/images/jenkins-build-console.png)
-![SonarQube Project Overview](docs/images/sonarqube-project.png)
-![DockerHub Repository Tags](docs/images/dockerhub-tags.png)
-![Prometheus Targets](docs/images/prometheus-targets.png)
-![Grafana Dashboard - Node Exporter](docs/images/grafana-node-exporter.png)
-![Application Homepage](docs/images/app-home.png)
+![Architecture Diagram](screenshots/architecture.png)
+![Jenkins Pipeline Stage View](screenshots/jenkins-stage-view.png)
+![Jenkins Build Console](screenshots/jenkins-build-console.png)
+![SonarQube Project Overview](screenshots/sonarqube-project.png)
+![DockerHub Repository Tags](screenshots/dockerhub-tags.png)
+![Prometheus Targets](screenshots/prometheus-targets.png)
+![Grafana Dashboard - Node Exporter](screenshots/grafana-node-exporter.png)
+![Application Homepage](screenshots/app-home.png)
 
 What to capture:
 
