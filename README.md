@@ -23,30 +23,27 @@ amazon-Devsecops/
 
 ## Screenshots
 
-Place screenshots under `docs/images/` and ensure the paths below match your filenames. If you haven't captured them yet, the list indicates exactly what to take.
+Screenshots are stored in the `screenshots/` folder. The images below should now display properly on GitHub:
 
-![Architecture Diagram](screenshots/architecture.png)
-![Jenkins Pipeline Stage View](screenshots/jenkins-stage-view.png)
-![Jenkins Build Console](screenshots/jenkins-build-console.png)
-![SonarQube Project Overview](screenshots/sonarqube-project.png)
-![DockerHub Repository Tags](screenshots/dockerhub-tags.png)
-![Prometheus Targets](screenshots/prometheus-targets.png)
-![Grafana Dashboard - Node Exporter](screenshots/grafana-node-exporter.png)
-![Application Homepage](screenshots/app-home.png)
+![Architecture Diagram](./screenshots/architecture.png)
+![Jenkins Pipeline Stage View](./screenshots/jenkins-stage-view.png)
+![Jenkins Build Console](./screenshots/jenkins-build-console.png)
+![SonarQube Project Overview](./screenshots/sonarqube-project.png)
+![DockerHub Repository Tags](./screenshots/dockerhub-tags.png)
+![Prometheus Targets](./screenshots/prometheus-targets.png)
+![Grafana Dashboard - Node Exporter](./screenshots/grafana-node-exporter.png)
+![Grafana Performance Dashboard](./screenshots/grafana-performance.png)
+![Application Homepage](./screenshots/app-home.png)
 
-What to capture:
-
--   Architecture diagram: Source → Jenkins → Scanners → Docker → Deploy → Monitor
--   Jenkins stage view of a successful pipeline run
--   Jenkins console output around SonarQube/Trivy/Dependency-Check
--   SonarQube project dashboard (quality gate)
--   Dependency-Check HTML summary
--   Trivy filesystem and image reports
--   Docker Hub repo showing pushed tags (`latest` and build-number tag)
--   `docker ps` showing the running container
--   Prometheus Targets page listing node_exporter and Jenkins
--   Grafana dashboards (Node Exporter 1860, Jenkins 9964)
--   The app running in the browser
+**Available Screenshots:**
+✅ Architecture diagram: Source → Jenkins → Scanners → Docker → Deploy → Monitor
+✅ Jenkins stage view of a successful pipeline run  
+✅ Jenkins console output around SonarQube/Trivy/Dependency-Check
+✅ SonarQube project dashboard (quality gate)
+✅ Docker Hub repo showing pushed tags (`latest` and build-number tag)
+✅ Prometheus Targets page listing node_exporter and Jenkins
+✅ Grafana dashboards (Node Exporter 1860, Jenkins 9964)
+✅ The app running in the browser
 
 ## Run Locally
 
