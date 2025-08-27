@@ -135,8 +135,24 @@ pipeline {
                 try {
                     emailext(
                         subject: "Pipeline SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                        body: "SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER} by ${buildUser}. URL: ${env.BUILD_URL}",
+                        body: """
+                            <html>
+                              <body>
+                                <h2 style=\"margin:0 0 8px 0;\">Build Successful ✅</h2>
+                                <p><strong>Project</strong>: ${env.JOB_NAME}</p>
+                                <p><strong>Build #</strong>: ${env.BUILD_NUMBER}</p>
+                                <p><strong>Started by</strong>: ${buildUser}</p>
+                                <p><strong>Docker Image</strong>: ${env.IMAGE_TAG ?: 'n/a'}</p>
+                                <hr/>
+                                <p><strong>Build URL</strong>: <a href=\"${env.BUILD_URL}\">${env.BUILD_URL}</a></p>
+                                <p><strong>Console Log</strong>: <a href=\"${env.BUILD_URL}console\">${env.BUILD_URL}console</a></p>
+                                <p><strong>Workspace</strong>: ${env.WORKSPACE}</p>
+                              </body>
+                            </html>
+                        """,
                         to: 'rimandeep267@gmail.com',
+                        from: 'rimandeep267@gmail.com',
+                        mimeType: 'text/html',
                         attachLog: true,
                         compressLog: true
                     )
@@ -161,8 +177,24 @@ pipeline {
                 try {
                     emailext(
                         subject: "Pipeline FAILURE: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                        body: "FAILURE: ${env.JOB_NAME} #${env.BUILD_NUMBER} by ${buildUser}. URL: ${env.BUILD_URL}",
+                        body: """
+                            <html>
+                              <body>
+                                <h2 style=\"margin:0 0 8px 0;\">Build Failed ❌</h2>
+                                <p><strong>Project</strong>: ${env.JOB_NAME}</p>
+                                <p><strong>Build #</strong>: ${env.BUILD_NUMBER}</p>
+                                <p><strong>Started by</strong>: ${buildUser}</p>
+                                <p><strong>Docker Image</strong>: ${env.IMAGE_TAG ?: 'n/a'}</p>
+                                <hr/>
+                                <p><strong>Build URL</strong>: <a href=\"${env.BUILD_URL}\">${env.BUILD_URL}</a></p>
+                                <p><strong>Console Log</strong>: <a href=\"${env.BUILD_URL}console\">${env.BUILD_URL}console</a></p>
+                                <p><strong>Workspace</strong>: ${env.WORKSPACE}</p>
+                              </body>
+                            </html>
+                        """,
                         to: 'rimandeep267@gmail.com',
+                        from: 'rimandeep267@gmail.com',
+                        mimeType: 'text/html',
                         attachLog: true,
                         compressLog: true
                     )
