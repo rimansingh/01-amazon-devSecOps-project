@@ -131,48 +131,54 @@ pipeline {
         success {
             script {
                 def buildUser = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')[0]?.userId ?: ' Github User'
-                emailext(
-                    subject: "Pipeline SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                    body: """
-                        <p>This is a Jenkins Amazon CICD pipeline status.</p>
-                        <p>Project: ${env.JOB_NAME}</p>
-                        <p>Build Number: ${env.BUILD_NUMBER}</p>
-                        <p>Build Status: SUCCESS</p>
-                        <p>Started by: ${buildUser}</p>
-                        <p>Build URL: <a href=\"${env.BUILD_URL}\">${env.BUILD_URL}</a></p>
-                    """,
-                    to: 'rimandeep267@gmail.com',
-                    mimeType: 'text/html',
-                    attachLog: true,
-                    compressLog: true,
-                    attachmentsPattern: 'trivyfs.txt,trivy-image.json,trivy-image.txt,dependency-check-report.xml'
-                )
+                echo "Attempting emailext SUCCESS notification..."
+                try {
+                    emailext(
+                        subject: "Pipeline SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                        body: "SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER} by ${buildUser}. URL: ${env.BUILD_URL}",
+                        to: 'rimandeep267@gmail.com',
+                        attachLog: true,
+                        compressLog: true
+                    )
+                    echo "emailext SUCCESS email dispatched"
+                } catch (err) {
+                    echo "emailext failed on SUCCESS: ${err}"
+                }
+
+                echo "Attempting fallback mail() SUCCESS notification..."
+                try {
+                    mail subject: "[Fallback] SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}", body: "Build succeeded. URL: ${env.BUILD_URL}", to: 'rimandeep267@gmail.com'
+                    echo "mail() SUCCESS email dispatched"
+                } catch (err) {
+                    echo "mail() failed on SUCCESS: ${err}"
+                }
             }
         }
         failure {
             script {
                 def buildUser = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')[0]?.userId ?: ' Github User'
-                emailext(
-                    subject: "Pipeline FAILURE: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                    body: """
-                        <p>This is a Jenkins Amazon CICD pipeline status.</p>
-                        <p>Project: ${env.JOB_NAME}</p>
-                        <p>Build Number: ${env.BUILD_NUMBER}</p>
-                        <p>Build Status: FAILURE</p>
-                        <p>Started by: ${buildUser}</p>
-                        <p>Build URL: <a href=\"${env.BUILD_URL}\">${env.BUILD_URL}</a></p>
-                    """,
-                    to: 'rimandeep267@gmail.com',
-                    mimeType: 'text/html',
-                    attachLog: true,
-                    compressLog: true,
-                    attachmentsPattern: 'trivyfs.txt,trivy-image.json,trivy-image.txt,dependency-check-report.xml'
-                )
+                echo "Attempting emailext FAILURE notification..."
+                try {
+                    emailext(
+                        subject: "Pipeline FAILURE: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                        body: "FAILURE: ${env.JOB_NAME} #${env.BUILD_NUMBER} by ${buildUser}. URL: ${env.BUILD_URL}",
+                        to: 'rimandeep267@gmail.com',
+                        attachLog: true,
+                        compressLog: true
+                    )
+                    echo "emailext FAILURE email dispatched"
+                } catch (err) {
+                    echo "emailext failed on FAILURE: ${err}"
+                }
+
+                echo "Attempting fallback mail() FAILURE notification..."
+                try {
+                    mail subject: "[Fallback] FAILURE: ${env.JOB_NAME} #${env.BUILD_NUMBER}", body: "Build failed. URL: ${env.BUILD_URL}", to: 'rimandeep267@gmail.com'
+                    echo "mail() FAILURE email dispatched"
+                } catch (err) {
+                    echo "mail() failed on FAILURE: ${err}"
+                }
             }
         }
     }
 }
-
-
-
-
