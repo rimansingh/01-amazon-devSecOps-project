@@ -27,8 +27,14 @@ pipeline {
             steps {
                 withSonarQubeEnv('sonar-server') {
                     sh ''' $SCANNER_HOME/bin/sonar-scanner \
+                        -Dsonar.projectKey=amazon \
                         -Dsonar.projectName=amazon \
-                        -Dsonar.projectKey=amazon '''
+                        -Dsonar.projectVersion=${BUILD_NUMBER} \
+                        -Dsonar.sources=src \
+                        -Dsonar.exclusions=public/**,node_modules/**,build/**,**/*.test.js,**/*.spec.js \
+                        -Dsonar.javascript.file.suffixes=.js,.jsx \
+                        -Dsonar.sourceEncoding=UTF-8 \
+                        -Dsonar.newCode.referenceBranch=main '''
                 }
             }
         }
