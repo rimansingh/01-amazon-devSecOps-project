@@ -37,11 +37,10 @@ pipeline {
             steps {
                 script {
                     timeout(time: 3, unit: 'MINUTES') {
-                  
-                    waitForQualityGate abortPipeline: false, credentialsId: 'sonar-token'
+                        waitForQualityGate abortPipeline: false, credentialsId: 'sonar-token'
+                    }
                 }
             }
-        }
         }
 
         stage("Install NPM Dependencies") {
@@ -50,7 +49,6 @@ pipeline {
             }
         }
         
-       
         stage("OWASP FS Scan") {
             steps {
                 dependencyCheck additionalArguments: '''
@@ -64,7 +62,6 @@ pipeline {
                 dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
             }
         }
-
 
         stage("Trivy File Scan") {
             steps {
@@ -101,8 +98,6 @@ pipeline {
             }
         }
 
-       
-
         stage("Trivy Scan Image") {
             steps {
                 script {
@@ -122,7 +117,6 @@ pipeline {
             }
         }
 
-
         stage("Deploy to Container") {
             steps {
                 script {
@@ -133,30 +127,50 @@ pipeline {
         }
     }
 
-      post {
-    always {
-        script {
-            def buildStatus = currentBuild.currentResult
-            def buildUser = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')[0]?.userId ?: ' Github User'
-
-            emailext (
-                subject: "Pipeline ${buildStatus}: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                body: """
-                    <p>This is a Jenkins Amazon CICD pipeline status.</p>
-                    <p>Project: ${env.JOB_NAME}</p>
-                    <p>Build Number: ${env.BUILD_NUMBER}</p>
-                    <p>Build Status: ${buildStatus}</p>
-                    <p>Started by: ${buildUser}</p>
-                    <p>Build URL: <a href="${env.BUILD_URL}">${env.BUILD_URL}</a></p>
-                """,
-                to: 'rimandeep267@gmail.com',
-                from: 'rimandeep267@gmail.com',
-                mimeType: 'text/html',
-                attachmentsPattern: 'trivyfs.txt,trivy-image.json,trivy-image.txt,dependency-check-report.xml'
-                    )
+    post {
+        success {
+            script {
+                def buildUser = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')[0]?.userId ?: ' Github User'
+                emailext(
+                    subject: "Pipeline SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                    body: """
+                        <p>This is a Jenkins Amazon CICD pipeline status.</p>
+                        <p>Project: ${env.JOB_NAME}</p>
+                        <p>Build Number: ${env.BUILD_NUMBER}</p>
+                        <p>Build Status: SUCCESS</p>
+                        <p>Started by: ${buildUser}</p>
+                        <p>Build URL: <a href=\"${env.BUILD_URL}\">${env.BUILD_URL}</a></p>
+                    """,
+                    to: 'rimandeep267@gmail.com',
+                    mimeType: 'text/html',
+                    attachLog: true,
+                    compressLog: true,
+                    attachmentsPattern: 'trivyfs.txt,trivy-image.json,trivy-image.txt,dependency-check-report.xml'
+                )
+            }
+        }
+        failure {
+            script {
+                def buildUser = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')[0]?.userId ?: ' Github User'
+                emailext(
+                    subject: "Pipeline FAILURE: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                    body: """
+                        <p>This is a Jenkins Amazon CICD pipeline status.</p>
+                        <p>Project: ${env.JOB_NAME}</p>
+                        <p>Build Number: ${env.BUILD_NUMBER}</p>
+                        <p>Build Status: FAILURE</p>
+                        <p>Started by: ${buildUser}</p>
+                        <p>Build URL: <a href=\"${env.BUILD_URL}\">${env.BUILD_URL}</a></p>
+                    """,
+                    to: 'rimandeep267@gmail.com',
+                    mimeType: 'text/html',
+                    attachLog: true,
+                    compressLog: true,
+                    attachmentsPattern: 'trivyfs.txt,trivy-image.json,trivy-image.txt,dependency-check-report.xml'
+                )
+            }
         }
     }
-}
 }
 
 
